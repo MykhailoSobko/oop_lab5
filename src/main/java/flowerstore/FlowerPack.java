@@ -5,7 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @ToString
-public class FlowerPack {
+public class FlowerPack extends Item {
     @Getter @Setter
     private Flower flower;
     @Getter @Setter
@@ -17,5 +17,10 @@ public class FlowerPack {
 
     public double getPrice() {
         return flower.getPrice() * amount;
+    }
+
+    @Override
+    public String getDescription() {
+        return "Flower pack of " + amount + ' ' + flower.getFlowerType() + " flowers";
     }
 }

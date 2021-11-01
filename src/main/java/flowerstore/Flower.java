@@ -8,7 +8,7 @@ import lombok.ToString;
 import java.util.Arrays;
 
 @ToString
-public class Flower {
+public class Flower extends Item {
     @Getter @Setter
     private double sepalLength;
     @Getter

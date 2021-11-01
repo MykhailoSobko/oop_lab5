@@ -4,7 +4,7 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 
-public class FlowerBucket {
+public class FlowerBucket extends Item {
     @Getter
     private ArrayList<FlowerPack> flowerPacks = new ArrayList<>();
 
@@ -18,5 +18,10 @@ public class FlowerBucket {
             price += flowerPack.getPrice();
         }
         return price;
+    }
+
+    @Override
+    public String getDescription() {
+        return "Flower bucket of " + flowerPacks.size() + " flower packs";
     }
 }
