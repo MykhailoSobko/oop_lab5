@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import payment.PayPalPaymentStrategy;
 import payment.Payment;
+import user.Receiver;
+import user.Sender;
 
 import javax.management.OperationsException;
 
@@ -18,6 +20,8 @@ class OrderTest {
     private Payment payment;
     private Delivery delivery;
     private Flower flower;
+    private Sender sender;
+    private Receiver receiver;
 
     @BeforeEach
     void setUp() {
@@ -26,6 +30,8 @@ class OrderTest {
         delivery = new PostDeliveryStrategy();
         flower = new Flower(FlowerType.CHAMOMILE);
         flower.setPrice(5);
+        sender = new Sender();
+        receiver = new Receiver();
     }
 
     @Test
@@ -64,5 +70,32 @@ class OrderTest {
         order.setPaymentStrategy(payment);
         order.setDeliveryStrategy(delivery);
         assertTrue(order.processOrder());
+    }
+
+    @Test
+    void addUser() {
+        order.addUser(sender);
+        order.addUser(receiver);
+    }
+
+    @Test
+    void removeUser() {
+        order.addUser(sender);
+        order.removeUser(sender);
+        order.removeUser(receiver);
+    }
+
+    @Test
+    void notifyUsers() {
+        order.addUser(sender);
+        order.addUser(receiver);
+        order.notifyUsers("failed");
+    }
+
+    @Test
+    void order() {
+        order.addUser(sender);
+        order.addUser(receiver);
+        order.order();
     }
 }

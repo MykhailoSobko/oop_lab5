@@ -3,16 +3,20 @@ package order;
 import delivery.Delivery;
 import flowerstore.Item;
 import payment.Payment;
+import user.User;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Order {
     private LinkedList<Item> items;
     private Payment payment;
     private Delivery delivery;
+    private List<User> users;
 
     public Order() {
         this.items = new LinkedList<>();
+        this.users = new LinkedList<>();
     }
 
     public void setPaymentStrategy(Payment paymentStrategy) {
@@ -56,5 +60,21 @@ public class Order {
         this.payment.pay(this.calculateTotalPrice());
         this.delivery.deliver(this.items);
         return true;
+    }
+
+    public void addUser(User user) {
+        this.users.add(user);
+    }
+
+    public void removeUser(User user) {
+        this.users.remove(user);
+    }
+
+    public void notifyUsers(String status) {
+        this.users.forEach(user -> user.update(status));
+    }
+
+    public void order() {
+        this.notifyUsers("success");
     }
 }
